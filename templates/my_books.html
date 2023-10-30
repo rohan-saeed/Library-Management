@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Books</title>
+  </head>
+  <body>
+    <h1>My Books</h1>
+    <h2>Issued Books</h2>
+    <ul>
+      {% for book_issue in my_books.issued_books %}
+      <li>
+        {{ book_issue.book.name }} (Return by: {{ book_issue.return_date }})
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h2>Requested Books</h2>
+    <ul>
+      {% for book_request in my_books.requested_books %}
+      <li>{{ book_request.book.name }} (Status: {{ book_request.status }})</li>
+      {% endfor %}
+    </ul>
+
+    <h2>Returned Books</h2>
+    <ul>
+      {% for book_return in my_books.returned_books %}
+      <li>
+        {{ book_return.book.name }} (Return Date: {{ book_return.return_date }})
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>

@@ -1,26 +1,52 @@
 from rest_framework import serializers
-from .models import Book, BookIssue, BookRequest, NewBookTicket
+from .models import Book, BookIssue, NewBookTicket
 
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = '__all__'
+        fields = ['name', 'author', 'publisher', 'image', 'quantity']
 
 
-class BookIssueSerializer(serializers.ModelSerializer):
+class UserIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookIssue
-        fields = '__all__'
+        fields = ['id', 'user', 'book',
+                  'issued_date', 'returned', 'return_date']
 
 
-class BookRequestSerializer(serializers.ModelSerializer):
+class LibrarianIssueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = BookRequest
-        fields = '__all__'
+        model = BookIssue
+        fields = ['id', 'user', 'book', 'issued_date',
+                  'returned', 'return_date', 'status']
+        read_only_fields = fields
 
 
-class BookTicketSerializer(serializers.ModelSerializer):
+class LibrarianUpdateIssueSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookIssue
+        fields = ['id', 'user', 'book', 'issued_date',
+                  'returned', 'return_date', 'status']
+        read_only_fields = ['id', 'user', 'book']
+
+
+class UserTicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = NewBookTicket
-        fields = '__all__'
+        fields = ['id', 'user', 'book', 'status']
+        read_only_fields = ['status']
+
+
+class LibrarianTicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NewBookTicket
+        fields = ['id', 'user', 'book', 'status']
+        read_only_fields = fields
+
+
+class LibrarianUpdateTicketSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookIssue
+        fields = ['id', 'user', 'book', 'status']
+        read_only_fields = ['id', 'user', 'book']

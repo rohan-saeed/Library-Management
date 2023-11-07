@@ -23,14 +23,14 @@ class Command(BaseCommand):
                     available_quantity = int(row['available_quantity'])
 
                     book, created = Book.objects.get_or_create(
-                        title=title,
+                        name=title,
                         author=author,
                         publisher=publisher,
-                        defaults={'available_quantity': available_quantity}
+                        defaults={'quantity': available_quantity}
                     )
 
                     if not created:
-                        book.available_quantity = available_quantity
+                        book.quantity = available_quantity
                         book.save()
 
                     self.stdout.write(self.style.SUCCESS(

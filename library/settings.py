@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 import environ
+import certifi
 
 env = environ.Env()
 environ.Env.read_env()
@@ -24,6 +25,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
+os.environ['SSL_CERT_FILE'] = certifi.where()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -141,15 +143,9 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRONJOBS = [
-    ('0 0 * * *', 'library_management.cron.send_return_reminders')
+    ('* * * * *', 'library_management.cron.send_return_reminders',
+     '>> /Users/rohansaeed/Desktop/library-management/library_management/debug7.log')
 ]
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = ''
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
 
 
 MEDIA_URL = '/media/'

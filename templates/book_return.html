@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Return a Book</title>
+  </head>
+  <body>
+    <h1>Return a Book</h1>
+
+    {% if books_issued %}
+    <form method="post">
+      {% csrf_token %} {{ form.as_table }}
+      <button type="submit">Return Book</button>
+    </form>
+    {% else %}
+    <p>No books issued.</p>
+    {% endif %}
+  </body>
+</html>
